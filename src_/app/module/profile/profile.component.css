@@ -1,0 +1,289 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  overflow-x: hidden;
+}
+.user-profile {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.photo-container {
+  position: relative;
+  display: inline-block;
+}
+
+#profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.custom-file-upload {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.action-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.action-icons i {
+  font-size: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.action-icons i:hover {
+  color: #007BFF; 
+}
+
+.user-name {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #666;
+}
+
+.sidebar {
+  width: 100%;
+  background-color: #f5f5f5;
+  color: #333333;
+  font-size: 14px;
+  padding-top: 20px;
+  max-height: none;
+  position: relative;
+  margin-top: 0;
+  margin-top: 75px;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  width: 100%;
+  margin-left: 0;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar ul li:hover {
+  background-color: #e0e0e0;
+}
+
+.sidebar ul li.section {
+  font-weight: bold;
+  padding-top: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.section-box {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.section-box h2 {
+  color: #333333;
+}
+
+.section-box form {
+  margin-top: 10px;
+}
+
+.section-box label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.section-box input[type="text"],
+.section-box input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.content .save-btn,
+.section-box .save-btn,
+.content .edit-btn,
+.section-box .edit-btn,
+.section-box .cancel-btn,
+.content .add-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.section-box .edit-btn:hover,
+.content .edit-btn:hover,
+.content .save-btn:hover,
+.section-box .save-btn:hover {
+  background-color: #45a049;
+}
+
+.section-box .cancel-btn {
+  background-color: #cd2121;
+}
+.section-box .cancel-btn:hover {
+  background-color: #af2626;
+}
+.btn-link {
+  float: right;
+  color: red;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.edit-btn_1 {
+  background-color: #41be10;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 0 0 10px;
+}
+
+.edit-btn_1:hover {
+  background-color: #06791b;
+}
+.delete-btn {
+  background-color: #db1717;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #ba1414;
+}
+
+.item-section {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    width: 200px;
+    min-width: 200px;
+    max-height: calc(100vh - 70px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    margin-top: 75px;
+  }
+
+  .content {
+    margin-left: 200px;
+    overflow-y: auto;
+  }
+
+  body {
+    padding-left: 200px;
+  }
+}
+
+.user-profile {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-profile {
+  position: relative;
+}
+
+.edit-profile-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.content .add-btn {
+  background-color: #1120a7;
+  float: right;
+  margin-top: -32px;
+  justify-content: center;
+  align-content: center;
+  padding: 11px 5px;
+}
+
+@media (max-width: 800px) {
+  .sidebar {
+    margin-top: 0px;
+  }
+}
+.content {
+  transition: margin-left 0.3s;
+}
+.toggle-btn {
+  top: 10px;
+  left: 10px;
+  z-index: 999;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 5px;
+  cursor: pointer;
+  display: none;
+  width: 100%;
+  font-style: oblique;
+  font-weight: bold;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .toggle-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}

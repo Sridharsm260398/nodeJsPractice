@@ -1,0 +1,63 @@
+<nav appHighlight class="navbar navbar-expand-lg bg-light navbar-light">
+  <mat-icon (click)="openChat()">chat</mat-icon>
+  <div class="container-fluid">
+    <div class="navbar-header d-flex align-items-center">
+      <img class="ImgWrap" src="../../../img/s-cart.png" alt="s-cart" />
+    </div>
+    <form class="d-flex search-bar mx-auto">
+      <input class="form-control me-2" type="search" placeholder="Search for products, brands and more" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav d-flex align-items-center">
+        <li *ngIf="isUserAuthenticated" class="nav-item">
+          <a class="nav-link" (click)="navigateTo('home')">{{ "HOME" | translate }}</a>
+        </li>
+        <li *ngIf="isUserAuthenticated" class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">{{ "MOREDETAILS" | translate }}</a>
+          <div class="dropdown-menu">
+            <a (click)="navigateTo('cart')" class="dropdown-item">{{ "CART" | translate }}</a>
+            <a (click)="navigateTo('checkout')" class="dropdown-item">{{ "CHECKOUT" | translate }}</a>
+            <a (click)="navigateTo('orders')" class="dropdown-item">{{ "ORDERS" | translate }}</a>
+          </div>
+        </li>
+        <li *ngIf="isUserAuthenticated" class="nav-item dropdown">
+          <a  class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">{{ "PROFILE" | translate }}</a>
+          <div class="dropdown-menu m-0 bg-default rounded-0">
+            <a (click)="navigateTo('profile');toggleSidebar()" class="dropdown-item">{{ "MYPROFILE" | translate }}</a>
+            <a  class="dropdown-item">{{ "NOTIFICATION" | translate }}</a>
+          <!--   <a (click)="onLogout()" class="dropdown-item">{{ "LOGOUT" | translate }}</a> -->
+          </div>
+        </li>
+  
+        <li *ngIf="isUserAuthenticated" class="nav-item">
+          <a (click)="navigateTo('cart')" class="nav-link"><span class="fas fa-shopping-cart"></span>{{ "CART" | translate }}</a>
+        </li>
+      
+        <li class="nav-item">
+          <a routerLink="signup" class="nav-link"><span class="glyphicon glyphicon-user"></span>{{ "SIGNUP" | translate }}</a>
+        </li>
+        <li *ngIf="!isUserAuthenticated" class="nav-item">
+          <a (click)="navigateTo('login')" class="nav-link"><span class="glyphicon glyphicon-log-in"></span>{{ "LOGIN" | translate }}</a>
+        </li>
+        <li *ngIf="isUserAuthenticated" class="nav-item">
+          <a (click)="onLogout()"  class="nav-link"><span class="glyphicon glyphicon-log-out"></span>{{ "LOGOUT" | translate }}</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ "LANGUAGE" | translate }}</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="setLanguage('en')">{{ "ENGLISH" | translate }}</a>
+            <a class="dropdown-item" (click)="setLanguage('es')">{{ "SPANISH" | translate }}</a>
+            <a class="dropdown-item" (click)="setLanguage('ka')">{{ "KANNADA" | translate }}</a>
+            <a class="dropdown-item" (click)="setLanguage('hi')">{{ "HINDI" | translate }}</a>
+            <a class="dropdown-item" (click)="setLanguage('tu')">{{ "TELUGU" | translate }}</a>
+            <a class="dropdown-item" (click)="setLanguage('fr')">{{ "FRENCH" | translate }}</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,377 @@
+<div class="container">
+  <div class="toggle-btn" (click)="toggleSidebar()">Hide Profile</div>
+</div>
+<div class="container">
+  <div class="sidebar">
+    <div class="user-profile">
+      <div *ngIf="user" class="photo-container">
+          <input type="file" id="file-upload" style="display: none;" (change)="onFileSelected($event)">
+          <label for="file-upload" class="custom-file-upload">
+              <i title="Edit Photo" class="fas fa-pencil-alt"></i>
+          </label>
+          <img id="profile-photo" src="../../../img/avatar.jpg" alt="Profile Photo">
+          <div class="action-icons">
+            <i class="fas fa-cloud-upload-alt" title="Upload" (click)="onUpload()"></i>
+            <i class="fas fa-trash-alt" title="Delete" (click)="onDelete()"></i>
+            <i class="fas fa-sync-alt" title="Refresh" (click)="onLoadPhoto()"></i>
+        </div>
+
+      </div>
+      <h3 class="user-name">{{ user?.name }}</h3>
+      <p class="user-email">{{ user?.email }}</p>
+  </div>
+    <div *ngIf="!user"> <img id="profile-photo" src="../../../img/avatar.jpg" alt="Profile Photo" /></div>
+    <div class="section">
+        <h3>{{ "USERINFORMATION" | translate }}</h3>
+        <ul>
+            <li (click)="showContent('profile')"><i class="fas fa-user"></i> {{ "PROFILEINFORMATION" | translate }}</li>
+            <li id="addressAdded" (click)="showContent('addresses')"><i class="fas fa-map-marker-alt"></i> {{ "MANAGEADDRESSES" | translate }}</li>
+            <li (click)="showContent('pan')"><i class="fas fa-id-card"></i> {{ "PANCARDINFORMATION" | translate }}</li>
+            <li (click)="showContent('changepwd')"><i class="fas fa-key"></i> {{ "Manage Password" | translate }}</li>
+        </ul>
+    </div>
+    <div class="section">
+        <h3>{{ "PAYMENTS" | translate }}</h3>
+        <ul>
+            <li class="section-item" (click)="showContent('upi')"><i class="fas fa-university"></i> {{ "SAVEDUPI" | translate }}</li>
+            <li class="section-item" (click)="showContent('cards')"><i class="fas fa-credit-card"></i> {{ "SAVEDCARDS" | translate }}</li>
+        </ul>
+    </div>
+    <div class="section">
+        <h3>{{ "OTHEROPTIONS" | translate }}</h3>
+        <ul>
+            <li (click)="showContent('orders')"><i class="fas fa-box"></i> {{ "MYORDERS" | translate }}</li>
+            <li (click)="showContent('notifications')"><i class="fas fa-bell"></i> {{ "ALLNOTIFICATIONS" | translate }}</li>
+            <li (click)="showContent('wishlist')"><i class="fas fa-heart"></i> {{ "MYWISHLIST" | translate }}</li>
+            <li (click)="onLogout()"><i class="fas fa-sign-out-alt"></i> {{ "LOGOUT" | translate }}</li>
+        </ul>
+    </div>
+</div>
+
+  <div class="content">
+    <div
+      *ngIf="selectedContent === 'profile' && this.profile.email == undefined"
+      class="section-box"
+    >
+      <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight: bold;font-style: italic; ">
+        {{ "NO_PROFILE_DATA" | translate }}
+      </h2>
+    </div>
+    <div
+      *ngIf="selectedContent === 'profile' && this.profile.email != undefined"
+      class="section-box"
+    >
+      <h2
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+        "
+      >
+        {{ "PROFILEINFORMATION" | translate }}
+      </h2>
+      <form>
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="profile.name"
+          [disabled]="!isEditing"
+        />
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="profile.email"
+          [disabled]="!isEditing"
+        />
+        <label for="phone_number">Phone:</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone_number"
+          [(ngModel)]="profile.phone_number"
+          [disabled]="!isEditing"
+        />
+        <button *ngIf="!isEditing" class="edit-btn" (click)="toggleEdit()">
+          Edit
+        </button>
+        <button
+          *ngIf="isEditing"
+          class="cancel-btn"
+          (click)="toggleEdit(); closePopup()"
+        >
+          {{ "CANCEL" | translate }}
+        </button>
+        <button
+          *ngIf="isEditing"
+          class="save-btn"
+          (click)="showPopup(this.profile)"
+        >
+          Update Profile
+        </button>
+      </form>
+    </div>
+    <app-popup
+      *ngIf="showingPopup"
+      (closed)="closePopup()"
+      (saved)="savePassword($event)"
+    ></app-popup>
+    <div
+      *ngIf="selectedContent === 'addresses' && !isEditingaddress"
+      class="section-box"
+    >
+      <h2
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+        "
+      >
+        {{ "MANAGEADDRESSES" | translate }}
+      </h2>
+      <button class="add-btn" (click)="toggleEdit(); setMode()">
+        {{ "ADD_NEW" | translate }}
+      </button>
+    </div>
+    <div
+      *ngIf="selectedContent === 'addresses' && isEditingaddress"
+      class="section-box"
+    >
+      <form>
+        <app-address></app-address>
+        <button
+          class="save-btn"
+          id="btnSaveaddress"
+          style="display: none; margin: 10px 0px 0px 15px"
+          (click)="saveAddress()"
+        >
+          {{ "SAVE" | translate }}
+        </button>
+      </form>
+    </div>
+    <div
+      *ngIf="
+        selectedContent === 'addresses' &&
+        !isEditingaddress &&
+        addresses.length > 0
+      "
+    >
+      <h3
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+          font-size: x-small;
+        "
+      >
+        {{ addresses.length }} Address Saved
+      </h3>
+      <div style="display: inline-grid; float: right; margin-top: -26px">
+        <input
+          name="address"
+          id="selectAll"
+          [(ngModel)]="selectedAddressid"
+          (change)="selectAllAddresses($event)"
+          type="radio"
+          [value]="'all'"
+        />
+        <label *ngIf="selectedAddressid != 'all'" for="selectAll"
+          >Select to delete all</label
+        >
+        <a
+          *ngIf="selectedAddressid === 'all'"
+          class="btn-link"
+          (click)="deleteAddresswiithID()"
+          >Delete All</a
+        >
+      </div>
+      <div *ngIf="!isEditingaddress">
+        <div class="item-section" *ngFor="let item of addresses">
+          <input
+            name="address"
+            [id]="item.addressid"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="allselected"
+            [value]="item.addressid"
+            [checked]="allselected"
+            (change)="onAddressSelect($event, item.addressid)"
+            type="radio"
+          />
+          <button
+            *ngIf="selectedAddressid === item.addressid"
+            class="edit-btn_1"
+            style="float: right"
+            (click)="
+              editAddress(item.addressid, item.user_id, item);
+              updateAddress(item.user_id, item.addressid, item);
+              toggleEdit()
+            "
+          >
+            Edit
+          </button>
+          <button
+            *ngIf="selectedAddressid === item.addressid"
+            class="delete-btn"
+            style="float: right"
+            (click)="
+              editAddress(item.addressid, item.user_id, item);
+              deleteAddress(item.user_id, item.addressid, item)
+            "
+          >
+            Delete
+          </button>
+          <h3
+            style="
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              font-weight: bold;
+              font-style: italic;
+            "
+          >
+            {{ item.first_name }} {{ item.last_name }} {{ item.mobile }}
+          </h3>
+          <p>
+            {{ item.email_address }}, {{ item.mobile }}, {{ item.locality }},
+            {{ item.address_optional }}, {{ item.state }}, {{ item.country }}-{{
+              item.postcode_zip
+            }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectedContent === 'pan'" class="section-box">
+      <h2
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+        "
+      >
+        {{ "PANCARDINFORMATION" | translate }}
+      </h2>
+      <form>
+        <label for="panNumber">PAN Number:</label>
+        <input
+          type="text"
+          id="panNumber"
+          name="panNumber"
+          [disabled]="!isEditing"
+        />
+        <button *ngIf="!isEditing" class="edit-btn" (click)="toggleEdit()">
+          Edit
+        </button>
+        <button *ngIf="isEditing" class="save-btn" (click)="savePAN()">
+          {{ "SAVE" | translate }}
+        </button>
+      </form>
+    </div>
+    <div *ngIf="selectedContent === 'changepwd'" class="section-box">
+      <h2
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+        "
+      >
+        {{ "Change Password" | translate }}
+      </h2>
+      <form>
+        <label for="currentPwd">Current Password</label>
+        <input
+          type="text"
+          id="currentPwd"
+          [(ngModel)]="passwordChange.currentPwd"
+          name="currentPwd"
+          [disabled]="!isEditingPWD"
+        />
+        <label for="newPwd">New Password</label>
+        <input
+          type="text"
+          id="newPwd"
+          [(ngModel)]="passwordChange.newPwd"
+          name="newPwd"
+          [disabled]="!isEditingPWD"
+        />
+        <label for="confirmPwd">Confirm Password</label>
+        <input
+          type="text"
+          id="confirmPwd"
+          [(ngModel)]="passwordChange.confirmPwd"
+          name="confirmPwd"
+          [disabled]="!isEditingPWD"
+        />
+        <button
+          *ngIf="!isEditingPWD"
+          class="edit-btn"
+          (click)="toggleEditPWD()"
+        >
+          Edit
+        </button>
+        <button
+          type="submit"
+          *ngIf="isEditingPWD"
+          class="save-btn"
+          (click)="savePWD()"
+        >
+          {{ "SAVE" | translate }}
+        </button>
+      </form>
+    </div>
+    <div *ngIf="selectedContent === 'upi'" class="section-box">
+      <h2
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+        "
+      >
+        {{ "SAVEDUPI" | translate }}
+      </h2>
+      <p>You have the following UPI accounts saved:</p>
+      <ul>
+        <li>upi_account1example.com</li>
+        <li>upi_account2example.com</li>
+      </ul>
+    </div>
+    <div *ngIf="selectedContent === 'cards'" class="section-box">
+      <form><app-card></app-card></form>
+    </div>
+    <div *ngIf="selectedContent === 'orders'" class="section-box">
+      <app-orders></app-orders>
+    </div>
+    <div *ngIf="selectedContent === 'notifications'" class="section-box">
+      <h2
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+        "
+      >
+        {{ "ALLNOTIFICATIONS" | translate }}
+      </h2>
+      <p>You have the following notifications:</p>
+      <ul>
+        <li>New message received</li>
+        <li>Order shipped</li>
+      </ul>
+    </div>
+    <div *ngIf="selectedContent === 'wishlist'" class="section-box">
+      <h2
+        style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: bold;
+          font-style: italic;
+        "
+      >
+        {{ "MYWISHLIST" | translate }}
+      </h2>
+      <p>You have the following items in your wishlist:</p>
+      <ul>
+        <li>Product X</li>
+        <li>Product Y</li>
+      </ul>
+    </div>
+  </div>
+</div>

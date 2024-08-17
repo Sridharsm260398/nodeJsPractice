@@ -1,0 +1,113 @@
+
+<div class="container">
+<!--   <div><app-spinner *ngIf="isLoad"></app-spinner></div> -->
+  <div class="row"  *ngIf="!isLoad">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <section>
+        <div class="text-center">
+        <!--   <img
+            src="../../../img/organic-store.jpg"
+            style="width: 150px"
+            alt="logo"
+            class="logo"
+          /> -->
+          <h2  class="animated-text mt-1 mb-5 pb-1">{{'LOGIN' | translate }}</h2>
+        </div>
+
+        <form (ngSubmit)="onSubmit(this.formData)">
+          <div class="form-outline mb-4">
+            <input
+              type="email"
+              id="form2email"
+              class="form-control"
+              placeholder="{{'EMAIL_ADDRESS' | translate }}"
+              [(ngModel)]="formData.form2email"
+              name="form2email"
+              #email="ngModel" 
+              required
+              email 
+              (input)="checkFields()"
+            />
+            <label class="form-label" style="display: none;" for="form2email">{{'EMAIL_ADDRESS' | translate }}</label>
+            <small class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+              {{'EMAIL_ADDRESS' | translate }} is invalid
+            </small>
+          </div>
+
+          <div class="form-outline mb-4">
+            <input
+              type="tel"
+              id="form2tel"
+              class="form-control"
+              placeholder="{{'PHONE_NUMBER' | translate }}"
+              [(ngModel)]="formData.form2tel"
+              name="form2tel"
+              #phone="ngModel" 
+              required
+              pattern="[0-9]{10}" 
+              (input)="checkFields()"
+            />
+            <label class="form-label"style="display: none;" for="form2tel">{{'PHONE_NUMBER' | translate }}</label>
+            <!-- Validation message for {{'PHONE_NUMBER' | translate }} -->
+            <small class="text-danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+              {{'PHONE_NUMBER' | translate }} must be 10 digits long
+            </small>
+          </div>
+
+          <div class="form-outline mb-4">
+            <input
+              type="password"
+              id="form2password"
+              placeholder="{{'PASSWORD' | translate }}"
+              class="form-control password-field"
+              [(ngModel)]="formData.form2password"
+              name="form2password"
+              #password="ngModel"
+              required
+             
+              (input)="checkFields()"
+            />
+            <label class="form-label" style="display: none;"for="form2password">{{'PASSWORD' | translate }}</label>
+            <span>
+              <i
+                id="toggleIcon"
+                class="eye-icon fa fa-eye"
+                aria-hidden="true"
+                (click)="showPassword()"
+              ></i
+            ></span>
+            <!-- Validation message for password -->
+            <small class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+              Password required
+            </small>
+          </div>
+
+          <div class="text-center pt-1 mb-5 pb-1">
+            <button
+              class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+              type="submit"
+              [disabled]="!isSignupEnabled"
+            >
+            {{'LOGIN' | translate }}
+            </button>
+            <a class="text-muted" href="#!">{{'FORGOT_PASSWORD' | translate }}</a>
+
+            <div
+              class="d-flex align-items-center justify-content-center pb-2"
+              style="margin-top: 10px"
+            >
+              <p class="mb-0 me-2">{{'DONT_HAVE_AN_ACCOUNT' | translate }}</p>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                (click)="navigateTo('signup')"
+              >
+              {{'SIGN_UP' | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

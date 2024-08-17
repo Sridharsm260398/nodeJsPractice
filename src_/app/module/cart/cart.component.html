@@ -1,0 +1,29 @@
+<div class="container">
+  <h2 class="shopping-cart-title">{{'SHOPPING_CART' | translate }}</h2>
+
+  <div *ngIf="cartItems.length > 0" class="cart-container">
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <img [src]="item.image" alt="{{ item.title }}" class="cart-item-image"/>
+      <div class="cart-item-details">
+        <h3 class="cart-item-title">{{ item.title }}</h3>
+        <p class="cart-item-price">₹{{ item.price }}</p>
+        <div class="quantity-controls">
+          <button (click)="decreaseQuantity(item)" class="btn btn-danger btn-sm">-</button>
+          <span class="quantity">{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item)" class="btn btn-success btn-sm">+</button>
+        </div>
+        <p class="cart-item-total">Total: ₹{{ item.price * item.quantity }}</p>
+        <button (click)="removeFromCart(item)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Remove</button>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <h3>Grand Total: ₹{{ calculateGrandTotal() }}</h3>
+      <button class="btn btn-primary checkout-btn" (click)="navigateTo('checkout')">Checkout</button>
+    </div>
+  </div>
+
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <p>{{'YOUR_CART_IS_EMPTY' | translate }}</p>
+  </div>
+</div>

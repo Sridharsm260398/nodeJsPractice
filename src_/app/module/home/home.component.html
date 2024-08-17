@@ -1,0 +1,141 @@
+<div><app-spinner *ngIf="isLoad"></app-spinner></div>
+
+<div class="items-container" *ngIf="!isLoad">
+  <div class="filters-categories">
+    <div class="search-filter-container">
+      <input
+        tabindex="0"
+        type="text"
+        class="search-bar"
+        [(ngModel)]="searchItems"
+        placeholder="Search Products..."
+      />
+      <!-- (input)="filterItems()" -->
+      <div class="search-bar-container">
+        <button tabindex="0" class="search-button" (click)="filterItems()">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+      <select
+        class="filter-dropdown"
+        [(ngModel)]="selectedValue"
+        (change)="filter(this.selectedValue)"
+      >
+        <option value=""></option>
+        <option value="Groceries">Groceries</option>
+        <option value="Toys">Toys</option>
+        <option value="jewelery">jewelery</option>
+        <option value="electronics">Electronics</option>
+        <option value="Kids">Kids</option>
+        <option value="men's clothing">Men</option>
+        <option value="women's clothing">Women</option>
+      </select>
+    </div>
+    <div class="additional-categories">
+      <div class="category">Fresh Produce</div>
+      <div class="category">Dairy & Eggs</div>
+      <div class="category dropdown">
+        Electronics
+        <div class="dropdown-menu">
+          <div class="subcategory">TVs & Appliances</div>
+          <div class="subcategory">Camera & Accessories</div>
+          <div class="subcategory">Laptops & Computers</div>
+        </div>
+      </div>
+      <div class="category dropdown">
+        Men
+        <div class="dropdown-menu">
+          <div class="subcategory">Clothing</div>
+          <div class="subcategory">Shoes</div>
+          <div class="subcategory">Accessories</div>
+        </div>
+      </div>
+      <div class="category dropdown">
+        Women
+        <div class="dropdown-menu">
+          <div class="subcategory">Clothing</div>
+          <div class="subcategory">Shoes</div>
+          <div class="subcategory">Accessories</div>
+        </div>
+      </div>
+      <div class="category dropdown">
+        Baby & Kids
+        <div class="dropdown-menu">
+          <div class="subcategory">Clothing</div>
+          <div class="subcategory">Toys & Games</div>
+          <div class="subcategory">Baby Care</div>
+        </div>
+      </div>
+      <div class="category dropdown">
+        Home & Furniture
+        <div class="dropdown-menu">
+          <div class="subcategory">Furniture</div>
+          <div class="subcategory">Home Decor</div>
+          <div class="subcategory">Kitchenware</div>
+        </div>
+      </div>
+      <div class="category dropdown">
+        Sports, Books & More
+        <div class="dropdown-menu">
+          <div class="subcategory">Sports Equipment</div>
+          <div class="subcategory">Books</div>
+          <div class="subcategory">Outdoor Gear</div>
+        </div>
+      </div>
+      <div class="category dropdown">
+        Offer Zone
+        <div class="dropdown-menu">
+          <div class="subcategory">Discounts</div>
+          <div class="subcategory">Deals</div>
+          <div class="subcategory">Promotions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="all-categories-row">
+      <div class="category">All</div>
+      <div class="category">Fruits</div>
+      <div class="category">Vegetables</div>
+      <div class="category">Dairy & Eggs</div>
+    </div>
+  </div>
+
+  <div class="item-cards">
+    <div class="item" *ngFor="let item of items">
+      <div class="image-container">
+        <img loading="lazy" [src]="item.image" alt="{{ item.name }}" class="item-image" />
+        <div class="wishlist-symbol">
+          <i class="fas fa-heart"></i>
+        </div>
+      </div>
+      <div class="details-container">
+        <div class="id">{{ item.id }}</div>
+        <div class="title">{{ item.title }}</div>
+        <div class="price">₹{{ item.price }}</div>
+        <div class="itemcategory">{{ item.category }}</div>
+        <div class="rating">{{ item.rate }} ({{ item.count }})</div>
+        <div class="buttons">
+          <button
+            class="add-to-cart-button"
+            id="cartbtn"
+            (click)="addToCart(item)"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="display: flex; align-items: center;justify-content: center;flex-direction: column;">
+  <div><h1 style="background-color: azure;font-size: xx-large;font-style:oblique;" *ngIf="items.length <= 0">No Data avilable!</h1></div>
+  <div>
+    <mat-paginator
+      [length]="totalProducts"
+      [pageSize]="productsPerPage"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="goToPage($event)"
+      *ngIf="items.length >= 0"
+    ></mat-paginator>
+  </div>
+</div>

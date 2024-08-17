@@ -1,0 +1,163 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-lg-4 left-side">
+      <div class="section">
+        <h2 class="section-title" (click)="toggleSection('address')">
+          {{ "ADDRESS_DETAILS" | translate }}
+
+          <span class="toggle-icon">{{ isAddressOpen ? "-" : "+" }}</span>
+        </h2>
+
+        <div *ngIf="isAddressOpen" class="expandable-content">
+          <form action="#" class="address-form">
+            <div class="address-item" *ngFor="let item of savedAddresses">
+              <input
+                name="address"
+                [id]="item.addressid"
+                [value]="item.addressid"
+                type="radio"
+              />
+
+              <div class="address-info">
+                <h3
+                  style="
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    font-weight: bold;
+                    font-style: italic;
+                  "
+                >
+                  {{ item.first_name }} {{ item.last_name }} {{ item.mobile }}
+                </h3>
+                <p>
+                  {{ item.email_address }}, {{ item.mobile }},
+                  {{ item.locality }}, {{ item.address_optional }},
+                  {{ item.state }}, {{ item.country }}-{{ item.postcode_zip }}
+                </p>
+              </div>
+
+              <div class="address-actions">
+                <button class="btn-del btn-link">Edit</button>
+
+                <button class="btn-del btn-link">Delete</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section">
+        <h2 class="section-title" (click)="toggleSection('cards')">
+          {{ "SAVED_CARDS" | translate }}
+
+          <span class="toggle-icon">{{ isCardsOpen ? "-" : "+" }}</span>
+        </h2>
+
+        <div *ngIf="isCardsOpen" class="expandable-content">
+          <div class="card-container">
+            <div *ngFor="let item of added_card" class="card-row">
+              <input
+                name="address"
+                [id]="item.card_id"
+                [value]="item.card_id"
+                type="radio"
+              />
+              <div class="card-body">
+                <img
+                  class="card-logo"
+                  src="https://img.icons8.com/color/48/000000/mastercard-logo.png"
+                  alt="Card Logo"
+                />
+
+                <input
+                  type="text"
+                  value="{{ item.card_number }}"
+                  disabled
+                  class="card-number"
+                  style="border: none; background-color: #fff"
+                />
+                <button class="btn-del btn-link" style="float: right">
+                  Remove card
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-8 right-side">
+      <div class="cart-container">
+        <div class="order-summary">
+          <h2>Order Summary</h2>
+
+          <div *ngFor="let item of cartItems" class="cart-item-box">
+            <img
+              [src]="item.image"
+              alt="{{ item.title }}"
+              class="cart-item-image"
+            />
+
+            <div class="cart-item-details">
+              <h3>{{ item.title }}</h3>
+
+              <p>₹{{ item.price }}</p>
+
+              <div class="cart-item-actions">
+                <button (click)="decreaseQuantity(item)" class="quantity-btn">
+                  -
+                </button>
+
+                <span class="quantity">{{ item.quantity }}</span>
+
+                <button (click)="increaseQuantity(item)" class="quantity-btn">
+                  +
+                </button>
+
+                <button
+                  (click)="removeFromCart(item)"
+                  class="btn btn-danger btn-sm"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="cart-item-total">₹{{ item.price * item.quantity }}</div>
+          </div>
+
+          <div class="pricing-details">
+            <h2>Pricing Details</h2>
+
+            <div class="pricing-item">
+              <span>Price ({{ cartItems.length }} items)</span>
+
+              <span>₹{{ calculateTotalPrice() }}</span>
+            </div>
+
+            <div class="pricing-item">
+              <span>Delivery Charges</span>
+
+              <span>₹40</span>
+            </div>
+
+            <div class="pricing-item total">
+              <span>Total Payable</span>
+
+              <span>₹{{ calculateGrandTotal() }}</span>
+            </div>
+
+            <div class="savings">
+              <span>Your Total Savings on this order ₹1,226</span>
+            </div>
+          </div>
+
+          <!-- Checkout Button -->
+
+          <div class="proceed-btn">
+            <button class="btn btn-primary checkout-btn" (click)="checkout();downloadInvoice('OD43043831067398410787')">
+              Place Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
