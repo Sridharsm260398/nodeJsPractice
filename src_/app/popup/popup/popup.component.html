@@ -1,0 +1,10 @@
+<div class="popup">
+    <div class="header">
+        <button class="save-btn" style="float: left;" (click)="updateProfile(); savePassword()">&#128190;</button>
+        <button class="close-btn" style="float: right;" (click)="closePopup()">&times;</button>
+    </div>
+    <div class="content">
+      <h1>Enter the Password</h1>
+      <input type="password" [(ngModel)]="password">
+    </div>
+  </div>

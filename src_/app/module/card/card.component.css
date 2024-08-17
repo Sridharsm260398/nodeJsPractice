@@ -1,0 +1,173 @@
+body {
+    background: #f3f4f6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.card-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.card-row {
+    background: linear-gradient(45deg, #b1b8bf, #716f76) !important;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    color: #fff;
+}
+
+.card-header span {
+    font-weight: bold;
+    color: #333;
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.card-details {
+    display: flex;
+    align-items: center;
+}
+
+.card-logo {
+    width: 48px;
+    margin-right: 10px;
+}
+
+.card-details input {
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.card-action {
+    position: absolute;
+    right: 10px;
+}
+
+.remove-card {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header-name {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.remove-card:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.add-card {
+    margin-top: 20px;
+    /*  border-top: 1px solid #ccc; */
+    padding-top: 20px;
+}
+
+.edit-btn {
+    padding: 5px;
+    background: #0f07ab;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background: #120d6f;
+}
+.cancel-btn {
+    padding: 5px;
+    background: #be0707;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #6f0d0d;
+}
+.edit-btn span {
+    font-weight: bold;
+}
+
+.new-card-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.form-row input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-inline {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-col {
+    width: 48%;
+}
+
+.btn.save-btn {
+    width: 100%;
+    background: #28a745;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.btn.save-btn:hover {
+    background: #218838;
+}
