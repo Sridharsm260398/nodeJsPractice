@@ -1,0 +1,25 @@
+From 27de67b2037e90abba246caff7aa655a90705758 Mon Sep 17 00:00:00 2001
+From: Sridhar S M <sridharsmwork@gmail.com>
+Date: Sun, 13 Oct 2024 09:38:58 +0530
+Subject: [PATCH 2/2] okk
+
+---
+ hospital - Copy - Copy.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/hospital - Copy - Copy.txt b/hospital - Copy - Copy.txt
+index 0f87068..d35dc16 100644
+--- a/hospital - Copy - Copy.txt	
++++ b/hospital - Copy - Copy.txt	
+@@ -3,7 +3,7 @@ MOBILE:9686802325
+ IHD,LV DYSFUNCTION- LVEF 48 %, NOW RECOVERED WITH LVEF - 68% 
+ VT/VF-CARDIAC ARREST S/P DC CARDIOVERSION
+ SINGLE VESSEL DISEASE ON 12/2/2023
+-PTCA + STENT TO LAD DISTAL TIMI 3 FLOW-12/2/23
++PTCA + STENT TO LAD DISTAL TIMI 3 FLOW-12/2/23wsdtfhjkljhugtfrdwsghmj hvgxdzsa
+ O/E
+ BP-122/80 MM OF HG
+ HR-60 BTS/MIN, WT 58 KGS
+-- 
+2.43.0.windows.1
+
